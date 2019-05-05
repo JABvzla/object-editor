@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { setIn } from "immutable";
+import { setIn, removeIn } from "immutable";
 import "./index.css";
 
 /**
@@ -25,16 +25,22 @@ class App extends PureComponent {
 
   onParentChange(e) {}
 
-  onChangeValue(e, k) {
+  onChangeValue(e, path) {
     this.props.updateObject(
-      this.setToValue(this.props.object, e.target.value, k)
+      this.setToValue(this.props.object, e.target.value, path)
     );
   }
 
-  setToValue(obj, value, path) {
-    path = path.split(".");
+  onRemoveValue(path) {
+    this.props.updateObject(this.removeValue(this.props.object, path));
+  }
 
-    return setIn(obj, path, value);
+  setToValue(obj, value, path) {
+    return setIn(obj, path.split("."), value);
+  }
+
+  removeValue(obj, path) {
+    return removeIn(obj, path.split("."));
   }
 
   renderObject(object, parent = "") {
@@ -51,7 +57,7 @@ class App extends PureComponent {
           <div key={index} className="parent">
             <label>{parentName}</label>
             {this.renderObject(object[parentName], _parent)}
-            <input type="text" />
+            <input type="text" />{" "}
           </div>
         );
       }
@@ -63,6 +69,9 @@ class App extends PureComponent {
             value={object[parentName]}
             onChange={e => this.onChangeValue(e, _parent)}
           />
+          <label rol="button" onClick={() => this.onRemoveValue(_parent)}>
+            X
+          </label>
         </div>
       );
     });
