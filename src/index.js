@@ -1,13 +1,16 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import ObjectEditor from './ObjectEditor';
 
-class ObjectEditor {
-  constructor(id, _cfg) {
-    ReactDOM.render(<App />, document.getElementById(id));
-  }
+if (process.env.NODE_ENV === "development") {
+  const testObject = {
+    user: {
+      personal: {
+        name: "jose",
+        lastName: "bonito"
+      }
+    }
+  };
+
+  window.objectEditor = new ObjectEditor("object-editor", testObject);
 }
-
-if (process.env.NODE_ENV === "development") new ObjectEditor("object-editor");
 
 window.ObjectEditor = ObjectEditor;
