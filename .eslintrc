@@ -49,6 +49,7 @@
         "no-lonely-if": 0,
         "consistent-return": 0,
         "require-jsdoc": 2,
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
         "jsdoc/check-param-names": 1,
         "jsdoc/check-tag-names": 1,
         "jsdoc/check-types": 1,
