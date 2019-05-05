@@ -1,0 +1,66 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": "react-app",
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "jsdoc",
+        "require-jsdoc"
+    ],
+    "rules": {
+        "react/jsx-uses-react": 1,
+        "import/no-extraneous-dependencies": 0,
+        "import/no-unresolved": 0,
+        "import/extensions": 0,
+        "import/prefer-default-export": 0,
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/no-array-index-key": 0,
+        "indent": ["error", 2],
+        "no-shadow": ["error", { "builtinGlobals": false, "hoist": "never", "allow": [] }],
+        "react/prop-types": 0,
+        "react/jsx-indent": ["error", 2],
+        "react/jsx-indent-props": ["error", 2],
+        "react/destructuring-assignment": 0,
+        "react/jsx-no-bind": 0,
+        "react/prefer-stateless-function": 0,
+        "object-curly-newline": 0,
+        "no-nested-ternary": 0,
+        "max-len": 0,
+        "react/no-unescaped-entities": 0,
+        "react/no-string-refs": 0,
+        "class-methods-use-this": 0,
+        "global-require": 0,
+        "no-underscore-dangle": 0,
+        "no-undef": 0,
+        "no-case-declarations": 0,
+        "no-lonely-if": 0,
+        "consistent-return": 0,
+        "require-jsdoc": 2,
+        "jsdoc/check-param-names": 1,
+        "jsdoc/check-tag-names": 1,
+        "jsdoc/check-types": 1,
+        "jsdoc/newline-after-description": 1,
+        "jsdoc/require-description-complete-sentence": 1,
+        "jsdoc/require-example": 0,
+        "jsdoc/require-hyphen-before-param-description": 1,
+        "jsdoc/require-param": 1,
+        "jsdoc/require-param-description": 1,
+        "jsdoc/require-param-name": 1,
+        "jsdoc/require-param-type": 1,
+        "jsdoc/require-returns-description": 1,
+        "jsdoc/require-returns-type": 1
+    }
+}
