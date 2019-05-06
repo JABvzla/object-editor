@@ -6,8 +6,7 @@ if (process.env.NODE_ENV === "development") {
     user: {
       personal: {
         name: "jose",
-        lastName: "bonito",
-        astrid: "bonito"
+        lastName: "bonito"
       },
       param1: "value"
     },

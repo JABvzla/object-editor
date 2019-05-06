@@ -56,6 +56,86 @@ it("setToValue should be assign value deep in object", () => {
   expect(expectResult).toEqual(result);
 });
 
+it("setToValue should be update parent name in object", () => {
+  const testObject = {
+    user: {
+      personal: {
+        name: "jose",
+        lastName: "bonito",
+        astrid: "bonito"
+      },
+      param1: "value"
+    },
+    param2: "value",
+    prop2: {
+      param3: "value"
+    }
+  };
+
+  const expectResult = {
+    user: {
+      hola: {
+        name: "jose",
+        lastName: "bonito",
+        astrid: "bonito"
+      },
+      param1: "value"
+    },
+    param2: "value",
+    prop2: {
+      param3: "value"
+    }
+  };
+
+  const wrapper = shallow(
+    <App object={{}} updateObject={() => {}} />
+  ).instance();
+
+  const result = wrapper.setToValue(testObject, "hola", "user.personal", true);
+
+  expect(expectResult).toEqual(result);
+});
+
+it("setToValue should be update key name in object", () => {
+  const testObject = {
+    user: {
+      personal: {
+        name: "jose",
+        lastName: "bonito",
+        astrid: "bonito"
+      },
+      param1: "value"
+    },
+    param2: "value",
+    prop2: {
+      param3: "value"
+    }
+  };
+
+  const expectResult = {
+    user: {
+      personal: {
+        hola: "jose",
+        lastName: "bonito",
+        astrid: "bonito"
+      },
+      param1: "value"
+    },
+    param2: "value",
+    prop2: {
+      param3: "value"
+    }
+  };
+
+  const wrapper = shallow(
+    <App object={{}} updateObject={() => {}} />
+  ).instance();
+
+  const result = wrapper.setToValue(testObject, "hola", "user.personal.name", true);
+
+  expect(expectResult).toEqual(result);
+});
+
 it("removeValue should be remove value deep in object", () => {
   const testObject = {
     user: {
