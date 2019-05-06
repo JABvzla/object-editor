@@ -11,15 +11,16 @@ class App extends PureComponent {
     super(props);
 
     this.addParent = this.addParent.bind(this);
-    this.onParentChange = this.onParentChange.bind(this);
     this.onChangeValue = this.onChangeValue.bind(this);
   }
 
   addParent(e, path) {
-    // if (e.key === "Enter") this.onChangeValue(e, path);
+    if (e.key === "Enter") {
+      const newPath = path? `${path}.${e.target.value}` : e.target.value;
+      this.onChangeValue(e, newPath, true);
+      e.target.value = "";
+    }
   }
-
-  onParentChange(e) {}
 
   onChangeValue(e, path, isKey = false) {
     this.props.updateObject(
@@ -34,8 +35,8 @@ class App extends PureComponent {
   /**
    * Add or Update value to an object.
    *
-   * @param  {Object} obj - Obj Object to be updated.
-   * @param  {string} value - Value Value to be added.
+   * @param  {Object} obj - Object to be updated.
+   * @param  {string} value - Value to be added.
    * @param  {string} path - Path to update, separated with dot.
    * @param  {boolean} isKey - If true is a key else value. Default is false.
    *
@@ -45,6 +46,9 @@ class App extends PureComponent {
     path = path.split(".");
     const _obj = getIn(obj, path);
 
+    if (isKey && !_obj) {
+      return setIn(obj, path, "");
+    }
     if (isKey) {
       let newPath = path.slice();
       newPath[newPath.length - 1] = value;
@@ -111,7 +115,6 @@ class App extends PureComponent {
         {this.renderObject(object)}
         <input
           type="text"
-          onChange={this.onParentChange}
           onKeyDown={this.addParent}
         />
       </div>
