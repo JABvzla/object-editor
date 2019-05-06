@@ -83,7 +83,10 @@ class App extends PureComponent {
           object[parentName] !== null && typeof object[parentName] === "object";
 
         return (
-          <div key={index} className={isParent ? "parent input-group" : "child input-group"}>
+          <div
+            key={index}
+            className={isParent ? "parent input-group" : "child input-group"}
+          >
             <input
               type="text"
               className="form-control"
@@ -93,7 +96,10 @@ class App extends PureComponent {
 
             {isParent ? (
               <>
-                <div onClick={() => this.onRemoveValue(_parent)} className="input-group-append" >
+                <div
+                  onClick={() => this.onRemoveValue(_parent)}
+                  className="input-group-append"
+                >
                   <span className="input-group-text">X</span>
                 </div>
                 {this.renderObject(object[parentName], _parent)}
@@ -106,20 +112,22 @@ class App extends PureComponent {
                   value={object[parentName]}
                   onChange={e => this.onChangeValue(e, _parent)}
                 />
-                <div onClick={() => this.onRemoveValue(_parent)} className="input-group-append" >
+                <div
+                  onClick={() => this.onRemoveValue(_parent)}
+                  className="input-group-append"
+                >
                   <span className="input-group-text">X</span>
                 </div>
               </>
             )}
 
-            {isParent ||
-              (!isParent && !object[parentName] && (
-                <input
-                  type="text"
-                  className="form-control new-child"
-                  onKeyDown={e => this.addParent(e, _parent)}
-                />
-              ))}
+            {(isParent || !object[parentName]) && (
+              <input
+                type="text"
+                className="form-control new-child"
+                onKeyDown={e => this.addParent(e, _parent)}
+              />
+            )}
           </div>
         );
       });
