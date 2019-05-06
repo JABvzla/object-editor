@@ -62,6 +62,28 @@ describe("method setToValue", () => {
     expect(result).toEqual(expectResult);
   });
 
+  it("should be add a children on an empty key value", () => {
+    const testObject = {
+      param1: "value1",
+      prop1: ""
+    };
+
+    const expectResult = {
+      param1: "value1",
+      prop1: {
+        prop2: ""
+      },
+    };
+
+    const wrapper = shallow(
+      <App object={{}} updateObject={() => {}} />
+    ).instance();
+
+    const result = wrapper.setToValue(testObject, "", "prop1.prop2", true);
+
+    expect(result).toEqual(expectResult);
+  });
+
   it("should be assign value deep in object", () => {
     const testObject = {
       user: {

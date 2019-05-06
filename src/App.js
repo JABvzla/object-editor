@@ -16,7 +16,8 @@ class App extends PureComponent {
 
   addParent(e, path) {
     if (e.key === "Enter") {
-      const newPath = path? `${path}.${e.target.value}` : e.target.value;
+      const newPath = path ? `${path}.${e.target.value}` : e.target.value;
+
       this.onChangeValue(e, newPath, true);
       e.target.value = "";
     }
@@ -47,6 +48,12 @@ class App extends PureComponent {
     const _obj = getIn(obj, path);
 
     if (isKey && !_obj) {
+      const newPath = path.slice();
+      newPath.pop();
+      if(!getIn(obj, newPath)) {
+        const _obj2 = setIn(obj, newPath, {});
+        return setIn(_obj2, path, "");
+      }
       return setIn(obj, path, "");
     }
     if (isKey) {
@@ -80,7 +87,7 @@ class App extends PureComponent {
             <input
               type="text"
               value={parentName}
-              onChange={e => (this.onChangeValue(e, _parent, true))}
+              onChange={e => this.onChangeValue(e, _parent, true)}
             />
 
             {isParent ? (
@@ -99,9 +106,13 @@ class App extends PureComponent {
               </>
             )}
 
-            {isParent && (
-              <input type="text" onKeyDown={e => this.addParent(e, _parent)} />
-            )}
+            {isParent ||
+              (!isParent && !object[parentName] && (
+                <input
+                  type="text"
+                  onKeyDown={e => this.addParent(e, _parent)}
+                />
+              ))}
           </div>
         );
       });
@@ -113,10 +124,7 @@ class App extends PureComponent {
     return (
       <div className="object-editor">
         {this.renderObject(object)}
-        <input
-          type="text"
-          onKeyDown={this.addParent}
-        />
+        <input type="text" onKeyDown={this.addParent} />
       </div>
     );
   }
