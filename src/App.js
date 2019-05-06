@@ -50,7 +50,7 @@ class App extends PureComponent {
     if (isKey && !_obj) {
       const newPath = path.slice();
       newPath.pop();
-      if(!getIn(obj, newPath)) {
+      if (!getIn(obj, newPath)) {
         const _obj2 = setIn(obj, newPath, {});
         return setIn(_obj2, path, "");
       }
@@ -83,26 +83,32 @@ class App extends PureComponent {
           object[parentName] !== null && typeof object[parentName] === "object";
 
         return (
-          <div key={index} className={isParent ? "parent" : "child"}>
+          <div key={index} className={isParent ? "parent input-group" : "child input-group"}>
             <input
               type="text"
+              className="form-control"
               value={parentName}
               onChange={e => this.onChangeValue(e, _parent, true)}
             />
 
             {isParent ? (
               <>
-                <label onClick={() => this.onRemoveValue(_parent)}>X</label>
+                <div onClick={() => this.onRemoveValue(_parent)} className="input-group-append" >
+                  <span className="input-group-text">X</span>
+                </div>
                 {this.renderObject(object[parentName], _parent)}
               </>
             ) : (
               <>
                 <input
                   type="text"
+                  className="form-control"
                   value={object[parentName]}
                   onChange={e => this.onChangeValue(e, _parent)}
                 />
-                <label onClick={() => this.onRemoveValue(_parent)}>X</label>
+                <div onClick={() => this.onRemoveValue(_parent)} className="input-group-append" >
+                  <span className="input-group-text">X</span>
+                </div>
               </>
             )}
 
@@ -110,6 +116,7 @@ class App extends PureComponent {
               (!isParent && !object[parentName] && (
                 <input
                   type="text"
+                  className="form-control new-child"
                   onKeyDown={e => this.addParent(e, _parent)}
                 />
               ))}
@@ -124,7 +131,11 @@ class App extends PureComponent {
     return (
       <div className="object-editor">
         {this.renderObject(object)}
-        <input type="text" onKeyDown={this.addParent} />
+        <input
+          type="text"
+          className="form-control"
+          onKeyDown={this.addParent}
+        />
       </div>
     );
   }
