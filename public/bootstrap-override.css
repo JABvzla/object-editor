@@ -1,0 +1,19 @@
+.object-editor .new-child.form-control {
+  width: 100%;
+}
+
+.object-editor .parent > input.form-control {
+  display: inline;
+  max-width: 50%;
+}
+
+.object-editor .custom-remove {
+  padding-left: 3px;
+  color: #ff0000bd;
+}
+
+.object-editor .child {
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+}

@@ -1,12 +1,16 @@
-
-.parent {
-    padding-left: 20px;
+.object-editor .parent {
+  padding-left: 20px;
 }
 
-.child {
-    padding-left: 20px;
+.object-editor .child {
+  padding-left: 20px;
 }
 
-.new-child {
-    margin-left: 20px;
+.object-editor .new-child {
+  margin-left: 20px;
+  display: block;
+}
+
+.object-editor .remove {
+  cursor: pointer;
 }
