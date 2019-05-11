@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 import App from "./App";
 
 class ObjectEditor {
-  constructor(id, object = {}, _cfg) {
+  constructor(id, object = {}, config = {}) {
     this.__element = document.getElementById(id);
+    this.__cfg = config;
 
     if (!this.__element)
       return console.error(`Element id '${id}' was not found`);
@@ -21,8 +22,22 @@ class ObjectEditor {
     return this.__element;
   }
 
-  set object(obj) {
-    this.__obj = obj;
+  set object(object) {
+    this.__obj = object;
+    Private.render.bind(this)();
+  }
+
+  set mode(mode) {
+    if (["FREE", "READ", "UPDATE"].indexOf(mode.toUpperCase()) < 0)
+      return console.error(
+        "Invalid mode, expected one of ['FREE','READ','UPDATE']"
+      );
+    this.__cfg.mode = mode.toUpperCase();
+    Private.render.bind(this)();
+  }
+
+  set config(config) {
+    this.__cfg = config;
     Private.render.bind(this)();
   }
 }
@@ -35,6 +50,7 @@ const Private = {
         onChange={obj => {
           this.object = obj;
         }}
+        {...this.__cfg}
       />,
       this.__element
     );

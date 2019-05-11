@@ -72,8 +72,24 @@ class App extends PureComponent {
     return removeIn(obj, path.split("."));
   }
 
+  renderRemove(parent) {
+    const { mode } = this.props;
+
+    if (mode !== "FREE") return;
+
+    return (
+      <div
+        onClick={() => this.onRemoveValue(parent)}
+        className="input-group-append"
+      >
+        <span className="input-group-text">X</span>
+      </div>
+    );
+  }
+
   renderObject(object, parent = "") {
     if (!object) return;
+    const { mode } = this.props;
 
     return Object.keys(object)
       .sort()
@@ -92,16 +108,12 @@ class App extends PureComponent {
               className="form-control"
               value={parentName}
               onChange={e => this.onChangeValue(e, _parent, true)}
+              readOnly={mode !== "FREE"}
             />
 
             {isParent ? (
               <>
-                <div
-                  onClick={() => this.onRemoveValue(_parent)}
-                  className="input-group-append"
-                >
-                  <span className="input-group-text">X</span>
-                </div>
+                {this.renderRemove(_parent)}
                 {this.renderObject(object[parentName], _parent)}
               </>
             ) : (
@@ -111,17 +123,13 @@ class App extends PureComponent {
                   className="form-control"
                   value={object[parentName]}
                   onChange={e => this.onChangeValue(e, _parent)}
+                  readOnly={mode === "READ"}
                 />
-                <div
-                  onClick={() => this.onRemoveValue(_parent)}
-                  className="input-group-append"
-                >
-                  <span className="input-group-text">X</span>
-                </div>
+                {this.renderRemove(_parent)}
               </>
             )}
 
-            {(isParent || !object[parentName]) && (
+            {mode === "FREE" && (isParent || !object[parentName]) && (
               <input
                 type="text"
                 className="form-control new-child"
@@ -134,16 +142,18 @@ class App extends PureComponent {
   }
 
   render() {
-    const { object } = this.props;
+    const { object, mode } = this.props;
 
     return (
       <div className="object-editor">
         {this.renderObject(object)}
-        <input
-          type="text"
-          className="form-control"
-          onKeyDown={this.addParent}
-        />
+        {mode === "FREE" && (
+          <input
+            type="text"
+            className="form-control"
+            onKeyDown={this.addParent}
+          />
+        )}
       </div>
     );
   }
@@ -151,12 +161,14 @@ class App extends PureComponent {
 
 App.efaultProps = {
   object: {},
-  onChange: () => {}
+  onChange: () => {},
+  mode: "FREE"
 };
 
 App.propTypes = {
   object: PropTypes.object,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  mode: PropTypes.oneOf(["FREE", "READ", "UPDATE"])
 };
 
 export default App;

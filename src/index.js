@@ -16,7 +16,11 @@ if (process.env.NODE_ENV === "development") {
     },
   };
 
-  window.objectEditor = new ObjectEditor("object-editor", testObject);
+  const cfg = {
+    mode: 'FREE'
+  };
+
+  window.objectEditor = new ObjectEditor("object-editor", testObject, cfg);
 }
 
 window.ObjectEditor = ObjectEditor;
