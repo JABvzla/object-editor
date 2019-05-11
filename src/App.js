@@ -24,13 +24,13 @@ class App extends PureComponent {
   }
 
   onChangeValue(e, path, isKey = false) {
-    this.props.updateObject(
+    this.props.onChange(
       this.setToValue(this.props.object, e.target.value, path, isKey)
     );
   }
 
   onRemoveValue(path) {
-    this.props.updateObject(this.removeValue(this.props.object, path));
+    this.props.onChange(this.removeValue(this.props.object, path));
   }
 
   /**
@@ -149,9 +149,14 @@ class App extends PureComponent {
   }
 }
 
+App.efaultProps = {
+  object: {},
+  onChange: () => {}
+};
+
 App.propTypes = {
-  object: PropTypes.object.isRequired,
-  updateObject: PropTypes.func.isRequired
+  object: PropTypes.object,
+  onChange: PropTypes.func
 };
 
 export default App;

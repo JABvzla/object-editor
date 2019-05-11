@@ -8,7 +8,7 @@ configure({ adapter: new Adapter() });
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<App object={{}} updateObject={() => {}} />, div);
+  ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 describe("method setToValue", () => {
@@ -28,9 +28,7 @@ describe("method setToValue", () => {
       param3: "test"
     };
 
-    const wrapper = shallow(
-      <App object={{}} updateObject={() => {}} />
-    ).instance();
+    const wrapper = shallow(<App />).instance();
 
     const result = wrapper.setToValue(testObject, "test", "param3");
 
@@ -53,9 +51,7 @@ describe("method setToValue", () => {
       prop2: ""
     };
 
-    const wrapper = shallow(
-      <App object={{}} updateObject={() => {}} />
-    ).instance();
+    const wrapper = shallow(<App />).instance();
 
     const result = wrapper.setToValue(testObject, "", "prop2", true);
 
@@ -72,12 +68,10 @@ describe("method setToValue", () => {
       param1: "value1",
       prop1: {
         prop2: ""
-      },
+      }
     };
 
-    const wrapper = shallow(
-      <App object={{}} updateObject={() => {}} />
-    ).instance();
+    const wrapper = shallow(<App />).instance();
 
     const result = wrapper.setToValue(testObject, "", "prop1.prop2", true);
 
@@ -113,9 +107,7 @@ describe("method setToValue", () => {
       }
     };
 
-    const wrapper = shallow(
-      <App object={{}} updateObject={() => {}} />
-    ).instance();
+    const wrapper = shallow(<App />).instance();
 
     const result = wrapper.setToValue(
       testObject,
@@ -157,9 +149,7 @@ describe("method setToValue", () => {
       }
     };
 
-    const wrapper = shallow(
-      <App object={{}} updateObject={() => {}} />
-    ).instance();
+    const wrapper = shallow(<App />).instance();
 
     const result = wrapper.setToValue(
       testObject,
@@ -202,9 +192,7 @@ describe("method setToValue", () => {
       }
     };
 
-    const wrapper = shallow(
-      <App object={{}} updateObject={() => {}} />
-    ).instance();
+    const wrapper = shallow(<App />).instance();
 
     const result = wrapper.setToValue(
       testObject,
@@ -246,9 +234,7 @@ describe("method setToValue", () => {
       }
     };
 
-    const wrapper = shallow(
-      <App object={{}} updateObject={() => {}} />
-    ).instance();
+    const wrapper = shallow(<App />).instance();
 
     const result = wrapper.removeValue(testObject, "user.personal.lastName");
 

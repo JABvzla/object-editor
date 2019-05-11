@@ -13,11 +13,6 @@ class ObjectEditor {
     Private.render.bind(this)();
   }
 
-  updateObject(obj) {
-    this.__obj = obj;
-    Private.render.bind(this)();
-  }
-
   get object() {
     return this.__obj;
   }
@@ -25,12 +20,22 @@ class ObjectEditor {
   get element() {
     return this.__element;
   }
+
+  set object(obj) {
+    this.__obj = obj;
+    Private.render.bind(this)();
+  }
 }
 
 const Private = {
   render: function() {
     ReactDOM.render(
-      <App object={this.__obj} updateObject={this.updateObject.bind(this)} />,
+      <App
+        object={this.__obj}
+        onChange={obj => {
+          this.object = obj;
+        }}
+      />,
       this.__element
     );
   }
